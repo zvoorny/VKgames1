@@ -14,7 +14,7 @@
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	
       <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3VK-2.json", {onProgress: UnityProgress});
     </script>
   </head>
   <body>
@@ -28,37 +28,59 @@
     </div>
 	
 	
-	<script>
+	 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	
-	vkBridge.send('VKWebAppInit')
-  .then((data) => { 
-    if (data.result) {
-      // Приложение инициализировано
-	  
-	  function ShowAd() {
-	  vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
-  .then((data) => {
-    if (data.result)
-      console.log('Реклама показана');
-    else
-      console.log('Ошибка при показе');
-  })
-  .catch((error) => { console.log(error); /* Ошибка */ });
-	  }
-	  
-    } else {
-      // Ошибка
-    }
-  })
-  .catch((error) => {
-    // Ошибка
-    console.log(error);
-  });
 	
+	<script type="text/javascript">
+	
+	vkBridge.send('VKWebAppInit');
+
+
+
+      function auth(){
+        vkBridge.send('VKWebAppGetUserInfo').then(_info =>{
+          console.log(_info);
+          unityI.SendMessage('VKSDK', 'AuthenticateSuccess', JSON.stringify(_info));
+        });
+      }
+
+      function getUserData(){
+        vkBridge.send("VKWebAppStorageGet",{"keys":["_save"]}).then(data =>{
+        console.log(data);
+        unityI.SendMessage('VKSDK', 'DataGetting', JSON.stringify(data));
+      });}
+
+      function setUserData(data){
+        console.log(data);
+        vkBridge.send('VKWebAppStorageSet',{"key": "_save" , "value": data}).then(_info =>{
+          console.log("Saved!")});
+      }
+
+      function showFullscrenAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+          console.log(data);});
+      }
+	  
+	  function ShowCommonADV(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+          console.log(data);});
+      }
+	  
+	  function ShowCommonAdvertisment(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"interstitial"}).then(data => {
+          console.log(data);});
+      }
+
+      function showRewardedAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
+          console.log(data);
+          unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
+      }
 	
 	</script>
 	
   </body>
 </html>
+
 
 

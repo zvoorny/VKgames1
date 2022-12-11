@@ -1,5 +1,5 @@
 function UnityProgress(unityInstance, progress) {
-  if (unityInstance.Module)
+  if (!unityInstance.Module)
     return;
   if (!unityInstance.logo) {
     unityInstance.logo = document.createElement("div");
