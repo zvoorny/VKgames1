@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Unity WebGL Player | Super Death Boy</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="Build/UnityLoader.js"></script>
+	
+	<!-- VK Games SDK -->
+    
+	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	
+      <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3.json", {onProgress: UnityProgress});
+    </script>
+  </head>
+  <body>
+    <div class="webgl-content" style = "position: absolute; width: 100%; height: 100%; left: 0%; top: 0%; right: 0%; transform: translate(0%, 0%)">
+      <div id="unityContainer" style = "position: absolute; width: 100%; height: 100%;"></div>
+      <div class="footer">
+        <div class="webgl-logo"></div>
+        <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+        <div class="title">Super Death Boy</div>
+      </div>
+    </div>
+	
+	
+	<script>
+	
+	vkBridge.send('VKWebAppInit')
+  .then((data) => { 
+    if (data.result) {
+      // Приложение инициализировано
+	  
+	  function ShowAd() {
+	  vkBridge.send('VKWebAppShowNativeAds', { ad_format: 'interstitial' })
+  .then((data) => {
+    if (data.result)
+      console.log('Реклама показана');
+    else
+      console.log('Ошибка при показе');
+  })
+  .catch((error) => { console.log(error); /* Ошибка */ });
+	  }
+	  
+    } else {
+      // Ошибка
+    }
+  })
+  .catch((error) => {
+    // Ошибка
+    console.log(error);
+  });
+	
+	
+	</script>
+	
+  </body>
+</html>
+
+
