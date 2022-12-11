@@ -77,6 +77,12 @@
           unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
       }
 	
+	function ShowAd(){
+        vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
+          console.log(data);
+          unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
+      }
+	
 	</script>
 	
   </body>
