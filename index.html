@@ -13,9 +13,13 @@
     
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	
-      <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3VK-2.json", {onProgress: UnityProgress});
+     <script>
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3VK-3.json", {onProgress: UnityProgress});
     </script>
+	
+	
+</script>
+
   </head>
   <body>
     <div class="webgl-content" style = "position: absolute; width: 100%; height: 100%; left: 0%; top: 0%; right: 0%; transform: translate(0%, 0%)">
@@ -29,6 +33,7 @@
 	
 	
 	 <script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+	 
 	
 	
 	<script type="text/javascript">
@@ -43,6 +48,9 @@
           unityI.SendMessage('VKSDK', 'AuthenticateSuccess', JSON.stringify(_info));
         });
       }
+	  
+	
+	  
 
       function getUserData(){
         vkBridge.send("VKWebAppStorageGet",{"keys":["_save"]}).then(data =>{
@@ -76,11 +84,17 @@
           console.log(data);
           unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
       }
-	
-	function ShowAd(){
+	  
+	  function ShowAd(){
         vkBridge.send('VKWebAppShowNativeAds',{ad_format:"reward"}).then(data => {
           console.log(data);
           unityI.SendMessage('VKSDK', 'RewardGetting',JSON.stringify(data.result));})
+      }
+	  
+	  function RepostFriends(){
+        vkBridge.send("VKWebAppShowInviteBox", {})
+         .then(data => console.log(data.success))  
+        .catch(error => console.log(error));
       }
 	
 	</script>
