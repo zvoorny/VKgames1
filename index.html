@@ -14,7 +14,7 @@
 	<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
 	
      <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3VK-4.json", {onProgress: UnityProgress});
+      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/itog-superDeath3VK-5.json", {onProgress: UnityProgress});
     </script>
 	
 	
@@ -93,6 +93,12 @@
 	  
 	  function RepostFriends(){
         vkBridge.send("VKWebAppShowInviteBox", {})
+         .then(data => console.log(data.success))  
+        .catch(error => console.log(error));
+      }
+	  
+	  function Favorite(){
+        vkBridge.send("VKWebAppAddToFavorites", {})
          .then(data => console.log(data.success))  
         .catch(error => console.log(error));
       }
